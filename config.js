@@ -3,20 +3,9 @@ var config,
     path = require('path');
 
 function getDatabase() {
-  var db_config = {},
-      mysql_host = process.env['DB_PORT_3306_TCP_ADDR'] || process.env['DB_1_PORT_3306_TCP_ADDR'];
-  if (mysql_host) {
-    db_config['client'] = 'mysql';
-    db_config['connection'] = {
-      host: mysql_host,
-      port: '3306'
-    };
-  } else if (process.env['DB_CLIENT']) {
+  var db_config = {};
+  if (process.env['DB_CLIENT']) {
     db_config['client'] = process.env['DB_CLIENT'];
-    db_config['connection'] = {
-      host: process.env['DB_HOST'] || 'localhost',
-      port: process.env['DB_PORT'] || '3306'
-    };
   } else {
     return {
       client: 'sqlite3',
@@ -24,6 +13,18 @@ function getDatabase() {
 	filename: path.join(__dirname, '/content/data/ghost.db')
       },
       debug: false
+    };
+  }
+  var db_uri = /^tcp:\/\/([\d.]+):(\d+)$/.exec(process.env['DB_PORT']);
+  if (db_uri) {
+    db_config['connection'] = {
+      host: db_uri[1],
+      port: db_uri[2]
+    };
+  } else {
+    db_config['connection'] = {
+      host: process.env['DB_HOST'] || 'localhost',
+      port: process.env['DB_PORT'] || '3306'
     };
   }
   if (process.env['DB_USER']) db_config['connection']['user'] = process.env['DB_USER'];
