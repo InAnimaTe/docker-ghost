@@ -15,18 +15,24 @@ RUN \
 ADD config.js /ghost/config.js
 
 # Set environment variables.
-ENV NODE_ENV  production
-ENV URL	      http://localhost:2368/
+ENV NODE_ENV    production
+ENV URL	        http://localhost:2368/
+ENV DB_CLIENT   mysql
+ENV DB_HOST     db
+ENV DB_PORT     3306
+ENV DB_USER     ghost
+ENV DB_PASSWORD ghost
+ENV DB_DATABASE ghost
 
 # Define working directory.
 WORKDIR /ghost
 
-# Set permissions
-RUN chown ghost. -R /ghost/content
-
 # Set volume
 VOLUME "/ghost/content"
 
-USER ghost
+# Add run script
+ADD run-ghost.sh /run-ghost.sh
+RUN chmod 0500 /run-ghost.sh
+
 EXPOSE 2368
-CMD ["npm", "start"]
+CMD ["/run-ghost.sh"]
