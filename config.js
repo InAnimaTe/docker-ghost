@@ -34,12 +34,12 @@ function getDatabase() {
 }
 
 function getMailConfig() {
-  var mail_config = {}
-  	transport: 'SMTP',
-  		if (process.env.MAIL_SERVICE) { mail_config['options']['service']   = process.env.MAIL_SERVICE };
-  		if (process.env.MAIL_USER) { mail_config['options']['auth']['user'] = process.env.MAIL_USER };
-  		if (process.env.MAIL_PASS) { mail_config['options']['auth']['pass'] = process.env.MAIL_PASS };
-  	};
+  var mail_config = {
+        transport: 'SMTP'
+        };
+  if (process.env.MAIL_SERVICE) { mail_config['options']['service']   = process.env.MAIL_SERVICE };
+  if (process.env.MAIL_USER) { mail_config['options']['auth']['user'] = process.env.MAIL_USER };
+  if (process.env.MAIL_PASS) { mail_config['options']['auth']['pass'] = process.env.MAIL_PASS };
   return mail_config;
 }
 if (!process.env.URL) {
