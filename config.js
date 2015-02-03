@@ -35,10 +35,12 @@ function getDatabase() {
 
 function getMailConfig() {
   var mail_config = {}
-  if (process.env.MAIL_HOST)    { mail_config['host']      = process.env.MAIL_HOST }
-  if (process.env.MAIL_SERVICE) { mail_config['service']   = process.env.MAIL_SERVICE }
-  if (process.env.MAIL_USER) { mail_config['auth']['user'] = process.env.MAIL_USER }
-  if (process.env.MAIL_PASS) { mail_config['auth']['pass'] = process.env.MAIL_PASS }
+  	transport: 'SMTP',
+  	options:  {
+  		if (process.env.MAIL_SERVICE) { mail_config['service']   = process.env.MAIL_SERVICE }
+  		if (process.env.MAIL_USER) { mail_config['auth']['user'] = process.env.MAIL_USER }
+  		if (process.env.MAIL_PASS) { mail_config['auth']['pass'] = process.env.MAIL_PASS }
+  	}
   return mail_config;
 }
 if (!process.env.URL) {
