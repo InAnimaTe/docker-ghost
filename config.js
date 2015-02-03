@@ -35,7 +35,10 @@ function getDatabase() {
 
 function getMailConfig() {
   var mail_config = {
-        transport: 'SMTP'
+        transport: 'SMTP',
+        options: {
+                auth: {}
+                };
         };
   if (process.env.MAIL_SERVICE) { mail_config['options']['service']   = process.env.MAIL_SERVICE };
   if (process.env.MAIL_USER) { mail_config['options']['auth']['user'] = process.env.MAIL_USER };
