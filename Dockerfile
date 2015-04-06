@@ -1,4 +1,4 @@
-FROM dockerfile/nodejs
+FROM nodejs
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
 # Install Ghost
