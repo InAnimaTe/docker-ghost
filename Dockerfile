@@ -1,4 +1,4 @@
-FROM nodejs
+FROM node
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
 # Install Ghost
